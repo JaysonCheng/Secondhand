@@ -1,0 +1,38 @@
+<%- include("../partials/header")%>
+
+      <header class="jumbotron">
+        <div class="container">
+            <h1>Welcome to Secondhand</h1>
+            <p>View our hand-picked used items that you might need in your daily life</p>
+            <p>
+                <a class="btn btn-primary btn-lg" href="/items/new">Add New Item</a>
+            </p>
+			<!-- <p>
+			<form action="/campgrounds" method="GET" class="form-inline">
+				<div class="form-group">
+					<input type="text" name="search" placeholder="Campground search..." class="form-control">
+					<input type="submit" value="Search" class="btn btn-default">
+				</div>	
+			</form>
+			</p> -->
+        </div>
+      </header>
+      
+      <div class="row text-center" style="display:flex; flex-wrap:wrap;">
+          <% items.forEach(function(item){ %>
+          <div class="col-md-3 col-sm-6">
+            <div class="thumbnail">
+              <img src="<%=item.image %>">
+			  <hr>
+              <div class="caption">
+                <h4><%=item.name %></h4>
+              </div>
+			  <p>
+				<a href="/items/<%= item._id %>" class="btn btn-primary">More Info</a>	
+			  </p>
+            </div>
+          </div>  
+          <% }); %>
+      </div>
+
+<%- include("../partials/footer")%>

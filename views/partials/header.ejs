@@ -20,7 +20,18 @@
 				  <span class="icon-bar"></span>
 				</button>
 
-				<a class="navbar-brand" href="/">Secondhand</a>
+				<a class="navbar-brand" href="/items">Secondhand</a>
+			</div>
+			<div id="navbar" class="collapse navbar-collapse">
+				<ul class="nav navbar-nav navbar-right">
+					<% if(!currentUser) { %>
+						<li><a href="/login">Login</a></li>
+						<li><a href="/register">Sign Up</a></li>
+					<% } else { %>
+						<li><a href="#">Signed in as <%= currentUser.username %></a></li>
+						<li><a href="/logout">Logout</a></li>
+					<% } %>
+				</ul>
 			</div>
 		</div>
 	</nav>
