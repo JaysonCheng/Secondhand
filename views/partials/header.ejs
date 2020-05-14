@@ -5,7 +5,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Secondhand</title>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-		<link rel="stylesheet" href="/stylesheets/main.css">
+		<link rel="stylesheet" href="/stylesheets/index.css">
 	</head>
 	
     <body>
@@ -36,6 +36,24 @@
 		</div>
 	</nav>
 		
+	<div class="container">
+		<% if(error && error.length > 0) { %>
+			<div class="alert alert-danger" role="alert">
+				<%= error %>
+			</div>	
+		<% } %>
+		<% if(success && success.length > 0) { %>
+			<div class="alert alert-success" role="alert">
+				<%= success %>
+			</div>	
+		<% } %>
+		<% if(warning && warning.length > 0) { %>
+			<div class="alert alert-warning" role="alert">
+				<%= warning %>
+			</div>	
+		<% } %>	
+	</div>	
+	
 	<div class="container">
 		
 
