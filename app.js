@@ -25,9 +25,11 @@ app.set("view engine", "ejs");
 app.use(express.static(__dirname + "/public"));
 app.use(methodOverride("_method"));
 app.use(flash());
+// for calculating time passed for post and comment added
+app.locals.moment = require('moment');
 // seedDB();
 
-// PASSPORT CONFIGURATION
+//PASSPORT CONFIGURATION
 app.use(require("express-session")({
 	secret: "Once again what happened",
 	resave: false,
