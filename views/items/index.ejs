@@ -1,5 +1,11 @@
 <%- include("../partials/header")%>
 
+	  <% if(currentUser && currentUser.isAdmin) { %> 
+		  <h1>
+			 Welcome back, Admin! 
+		  </h1>
+	  <% } %>
+
       <header class="jumbotron">
         <div class="container">
             <h1>Welcome to Secondhand</h1>

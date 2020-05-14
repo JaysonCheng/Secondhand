@@ -58,6 +58,7 @@ router.post("/", middleware.isLoggedIn, function(req, res){
         } else {
             //redirect back to items page
             console.log(newlyCreated);
+			req.flash("success", "You have successfully added your item");
             res.redirect("/items");
         }
     });
@@ -103,6 +104,7 @@ router.put("/:id", middleware.checkItemOwnership, function(req, res){
            res.redirect("/items");
        } else {
            //redirect somewhere(show page)
+		   req.flash("success", "You have successfully updated your item");
            res.redirect("/items/" + req.params.id);
        }
     });
@@ -115,6 +117,7 @@ router.delete("/:id", middleware.checkItemOwnership, function(req, res){
 		  req.flash("error", "Something went wrong");
           res.redirect("/items");
       } else {
+		  req.flash("success", "You have successfully deleted your item");
           res.redirect("/items");
       }
    });
