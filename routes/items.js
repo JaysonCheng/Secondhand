@@ -2,6 +2,7 @@ var express = require("express");
 var router  = express.Router();
 var Item = require("../models/item");
 var middleware = require("../middleware");
+var Review = require("../models/review");
 
 
 //===================
@@ -72,7 +73,10 @@ router.get("/new", middleware.isLoggedIn, function(req, res){
 // SHOW - shows more info about one item
 router.get("/:id", function(req, res){
     //find the item with provided ID
-    Item.findById(req.params.id).populate("comments").exec(function(err, foundItem){
+    Item.findById(req.params.id).populate("comments").populate({
+		path: "reviews",
+		options: {sort: {createdAt: -1}}
+	}).exec(function(err, foundItem){
         if(err || !foundItem){
             console.log(err);
 			req.flash("error", "Something went wrong");
@@ -112,15 +116,31 @@ router.put("/:id", middleware.checkItemOwnership, function(req, res){
 
 // DESTROY - delete item route
 router.delete("/:id", middleware.checkItemOwnership, function(req, res){
-   Item.findByIdAndRemove(req.params.id, function(err){
-      if(err){
-		  req.flash("error", "Something went wrong");
-          res.redirect("/items");
-      } else {
-		  req.flash("success", "You have successfully deleted your item");
-          res.redirect("/items");
-      }
-   });
+   Item.findById(req.params.id, function (err, item) {
+        if (err) {
+			req.flash("error", "Something went wrong");
+            res.redirect("/items");
+        } else {
+            // deletes all comments associated with the item
+            Comment.remove({"_id": {$in: item.comments}}, function (err) {
+                if (err) {
+                    console.log(err);
+                    return res.redirect("/items");
+                }
+                // deletes all reviews associated with the item
+                Review.remove({"_id": {$in: item.reviews}}, function (err) {
+                    if (err) {
+                        console.log(err);
+                        return res.redirect("/items");
+                    }
+                    //  delete the item
+                    item.remove();
+                    req.flash("success", "You have successfully deleted your item");
+                    res.redirect("/items");
+                });
+            });
+        }
+    });
 });
 
 function escapeRegex(text) {

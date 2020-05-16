@@ -16,6 +16,7 @@ var seedDB = require("./seeds");
 var itemRoutes = require("./routes/items")
 var commentRoutes = require("./routes/comments");
 var authRoutes = require("./routes/index");
+var reviewRoutes     = require("./routes/review");
 
 
 mongoose.connect("mongodb://localhost:27017/secondhand", {useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false});
@@ -54,7 +55,7 @@ app.use(function(req, res, next){
 app.use(authRoutes);
 app.use("/items", itemRoutes);
 app.use("/items/:id/comments", commentRoutes);
-
+app.use("/items/:id/reviews", reviewRoutes);
 
 app.listen(process.env.PORT || 5000, process.env.IP, function(){
     console.log("SECONDHAND IS RUNNING!");
