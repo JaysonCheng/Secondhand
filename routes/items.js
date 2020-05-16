@@ -11,30 +11,48 @@ var Review = require("../models/review");
 
 //INDEX - show all items
 router.get("/", function(req, res){
+	var perPage = 8;
+	var pageQuery = parseInt(req.query.page);
+	var pageNumber = pageQuery ? pageQuery : 1;
 	var noMatch = null;
 	if(req.query.search){
 		const regex = new RegExp(escapeRegex(req.query.search), 'gi');
 		// Get fuzzy search campgrounds from DB
-		Item.find({name: regex}, function(err, allItems){
-		   if(err){
+		Item.find({name: regex}).skip((perPage * pageNumber) - perPage).limit(perPage).exec(function(err, allItems){
+			Item.countDocuments({name: regex}).exec(function(err, count){
+			if(err){
 			   console.log(err);
-			   req.flash("error", "The item does not exist")
+			   req.flash("error", "The item does not exist");
+			   res.redirect("back");
 		   } else {
 			   if(allItems.length < 1){
 				   noMatch = "No results found";
 			   }
-			   res.render("items/index", {items: allItems, noMatch: noMatch});
+			   res.render("items/index", {
+				   items: allItems, 
+				   noMatch: noMatch,
+			   	   pages: Math.ceil(count / perPage),
+			  	   current: pageNumber,
+			       search: req.query.search});
 		   }
+			});
     	});
 	} else {
 		// Get all items from DB
-		Item.find({}, function(err, allItems){
-		   if(err){
-			   console.log(err);
-			   req.flash("error", "Something went wrong");
-		   } else {
-			  res.render("items/index", {items: allItems, noMatch: noMatch});
-		   }
+		Item.find({}).skip((perPage * pageNumber) - perPage).limit(perPage).exec(function(err, allItems){
+			Item.countDocuments().exec(function(err, count){
+				if(err){
+				   console.log(err);
+				   req.flash("error", "Something went wrong");
+				} else {
+				  res.render("items/index", {
+					  items: allItems, 
+					  noMatch: noMatch, 
+					  pages: Math.ceil(count / perPage), 
+					  current: pageNumber, 
+					  search: false});
+		   		}
+			});
 		});
 	}
 });
