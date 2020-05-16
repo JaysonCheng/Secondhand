@@ -46,6 +46,9 @@
 				<span class="fa fa-star <% if (item.rating > 3.5) { %> checked <% } %>"></span>
 				<span class="fa fa-star <% if (item.rating > 4.5) { %> checked <% } %>"></span>
 			<% } %>
+			<div>
+           		<span class="badge label-primary"><i class="fas fa-thumbs-up"></i> <%= item.likes.length %></span>
+       		</div>
 		  </div>
 		  <p>
 			<a href="/items/<%= item._id %>" class="btn btn-primary">More Info</a>	

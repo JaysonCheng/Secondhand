@@ -73,7 +73,7 @@ router.get("/new", middleware.isLoggedIn, function(req, res){
 // SHOW - shows more info about one item
 router.get("/:id", function(req, res){
     //find the item with provided ID
-    Item.findById(req.params.id).populate("comments").populate({
+    Item.findById(req.params.id).populate("comments likes").populate({
 		path: "reviews",
 		options: {sort: {createdAt: -1}}
 	}).exec(function(err, foundItem){
@@ -140,6 +140,37 @@ router.delete("/:id", middleware.checkItemOwnership, function(req, res){
                 });
             });
         }
+    });
+});
+
+// ITEM LIKE ROUTE
+router.post("/:id/like", middleware.isLoggedIn, function (req, res) {
+    Item.findById(req.params.id, function (err, foundItem) {
+        if (err) {
+            console.log(err);
+            return res.redirect("/items");
+        }
+
+        // check if req.user._id exists in foundItem.likes
+        var foundUserLike = foundItem.likes.some(function (like) {
+            return like.equals(req.user._id);
+        });
+
+        if (foundUserLike) {
+            // user already liked, removing like
+            foundItem.likes.pull(req.user._id);
+        } else {
+            // adding the new user like
+            foundItem.likes.push(req.user);
+        }
+
+        foundItem.save(function (err) {
+            if (err) {
+                console.log(err);
+                return res.redirect("/items");
+            }
+            return res.redirect("/items/" + foundItem._id);
+        });
     });
 });
 

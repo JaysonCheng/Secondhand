@@ -29,7 +29,13 @@ var itemSchema = new mongoose.Schema({
     rating: {
         type: Number,
         default: 0
-    }
+    },
+	likes: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "User"
+        }
+	]
 });
 
 module.exports = mongoose.model("Item", itemSchema);
