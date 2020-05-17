@@ -31,6 +31,7 @@ router.get("/", function(req, res){
 			   res.render("items/index", {
 				   items: allItems, 
 				   noMatch: noMatch,
+				   page: 'items',
 			   	   pages: Math.ceil(count / perPage),
 			  	   current: pageNumber,
 			       search: req.query.search});
@@ -48,6 +49,7 @@ router.get("/", function(req, res){
 				  res.render("items/index", {
 					  items: allItems, 
 					  noMatch: noMatch, 
+					  page: 'items',
 					  pages: Math.ceil(count / perPage), 
 					  current: pageNumber, 
 					  search: false});

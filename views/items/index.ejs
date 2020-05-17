@@ -7,18 +7,10 @@
 <% } %>
   <header class="jumbotron">
 	<div class="container">
-		<h1>Welcome to Secondhand</h1>
+		<h1>Welcome to Secondhand <i class="fas fa-leaf"></i></h1>
 		<p>View our hand-picked used items that you might need in your daily life</p>
 		<p>
-			<a class="btn btn-primary btn-lg" href="/items/new">Add New Item</a>
-		</p>
-		<p>
-		<form action="/items" method="GET" class="form-inline">
-			<div class="form-group">
-				<input type="text" name="search" placeholder="Search for item" class="form-control">
-				<input type="submit" value="Search" class="btn btn-default">
-			</div>	
-		</form>
+			<a class="btn btn-primary btn-lg" href="/items/new"><i class="fas fa-plus"></i> Add New Item</a>
 		</p>
 	</div>
   </header>
@@ -51,7 +43,7 @@
        		</div>
 		  </div>
 		  <p>
-			<a href="/items/<%= item._id %>" class="btn btn-primary">More Info</a>	
+			<a href="/items/<%= item._id %>" class="btn btn-primary"><i class="fas fa-info-circle"></i> More Info</a>	
 		  </p>
 		</div>
 	  </div>  

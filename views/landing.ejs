@@ -3,19 +3,24 @@
     <head>
         <title>Secondhand</title>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css">
+		<!-- <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet"> -->
+		<link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital@1&family=Lobster&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="/stylesheets/landing.css">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js" type="text/javascript" async></script>
     </head>
     <body>
     
     <div id="landing-header">
- 		<h1>Welcome to Secondhand!</h1>
-		<a href="/items" class="btn btn-lg btn-success">View All Items</a>
+ 		<h1><a href="/items" id="brandtitle">Secondhand <i class="fas fa-leaf"></i></a></h1>
+		<h2>
+			Let us help you to find all you need
+		</h2>
 		<p>
 			<form action="/items" method="GET" class="form-inline">
 				<div class="form-group">
-					<input type="text" name="search" placeholder="Search for item" class="form-control">
-					<input type="submit" value="Search" class="btn btn-default">
+					<input type="text" name="search" placeholder="Search for item" class="form-control" id="searchbox">
+					<button type="submit" class="btn btn-default"><i class="fas fa-search"></i></button>
 				</div>	
 			</form>
 		</p>

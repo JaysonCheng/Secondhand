@@ -1,3 +1,11 @@
+.form-inline{
+	padding-left: 15px;
+}
+
+#searchbox{
+	width: 300px;	
+}
+
 .thumbnail img{
 	width: 100%;
 }
